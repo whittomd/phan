@@ -1,2 +1,0 @@
-%s:20 AccessError Cannot access protected property \b::$text
-%s:13 TypeError assigning int[] to property but \b::text is string
