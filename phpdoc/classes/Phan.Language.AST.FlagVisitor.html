@@ -1,0 +1,3327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Phan</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Phan</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Phan.html">\Phan</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">696</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">8</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2140804957"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-2140804957" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1854172243"></a>
+                                <a href="../namespaces/Phan.html" style="margin-left: 30px; padding-left: 0">Phan</a>
+            </div>
+            <div id="namespace-1854172243" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1824815885"></a>
+                                <a href="../namespaces/Phan.Analyze.html" style="margin-left: 30px; padding-left: 0">Analyze</a>
+            </div>
+            <div id="namespace-1824815885" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Phan.Analyze.DuplicateClass.html">DuplicateClass</a></li>
+                                                    <li class="trait"><a href="../classes/Phan.Analyze.DuplicateFunction.html">DuplicateFunction</a></li>
+                                                    <li class="trait"><a href="../classes/Phan.Analyze.ParameterTypes.html">ParameterTypes</a></li>
+                                                    <li class="trait"><a href="../classes/Phan.Analyze.ParentConstructorCalled.html">ParentConstructorCalled</a></li>
+                                                    <li class="trait"><a href="../classes/Phan.Analyze.PropertyTypes.html">PropertyTypes</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-22078071"></a>
+                                <a href="../namespaces/Phan.Database.html" style="margin-left: 30px; padding-left: 0">Database</a>
+            </div>
+            <div id="namespace-22078071" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Phan.Database.Association.html">Association</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Database.ListAssociation.html">ListAssociation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-53943898"></a>
+                                <a href="../namespaces/Phan.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-53943898" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Phan.Exception.AccessException.html">AccessException</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Exception.NotFoundException.html">NotFoundException</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Exception.TypeException.html">TypeException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1790169510"></a>
+                                <a href="../namespaces/Phan.Language.html" style="margin-left: 30px; padding-left: 0">Language</a>
+            </div>
+            <div id="namespace-1790169510" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-943601954"></a>
+                                <a href="../namespaces/Phan.Language.AST.html" style="margin-left: 30px; padding-left: 0">AST</a>
+            </div>
+            <div id="namespace-943601954" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/Phan.Language.AST.FlagVisitor.html">FlagVisitor</a></li>
+                                                    <li class="interface"><a href="../classes/Phan.Language.AST.KindVisitor.html">KindVisitor</a></li>
+                                                                                                    <li class="class"><a href="../classes/Phan.Language.AST.FlagVisitorImplementation.html">FlagVisitorImplementation</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.AST.KindVisitorImplementation.html">KindVisitorImplementation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2039710501"></a>
+                                <a href="../namespaces/Phan.Language.FQSEN.html" style="margin-left: 30px; padding-left: 0">FQSEN</a>
+            </div>
+            <div id="namespace-2039710501" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Phan.Language.FQSEN.FullyQualifiedClassConstantName.html">FullyQualifiedClassConstantName</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.FQSEN.FullyQualifiedPropertyName.html">FullyQualifiedPropertyName</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-848794622"></a>
+                                <a href="../namespaces/Phan.Language.Type.html" style="margin-left: 30px; padding-left: 0">Type</a>
+            </div>
+            <div id="namespace-848794622" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Phan.Language.Type.ArrayType.html">ArrayType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.BoolType.html">BoolType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.FloatType.html">FloatType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.IntType.html">IntType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.MixedType.html">MixedType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.NullType.html">NullType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.ObjectType.html">ObjectType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.ResourceType.html">ResourceType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.StringType.html">StringType</a></li>
+                                                    <li class="class"><a href="../classes/Phan.Language.Type.VoidType.html">VoidType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/Phan.Memoize.html">Memoize</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Phan.Language.AST.html">\Phan\Language\AST</a>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Phan\Language\AST</small>FlagVisitor</h1>
+                    <p><em>A visitor of AST nodes based on the node&#039;s flag value</em></p>
+                    
+
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span6">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span6">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span6">
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignAdd">visitAssignAdd()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignBitwiseAnd">visitAssignBitwiseAnd()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignBitwiseOr">visitAssignBitwiseOr()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignBitwiseXor">visitAssignBitwiseXor()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignConcat">visitAssignConcat()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignDiv">visitAssignDiv()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignMod">visitAssignMod()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignMul">visitAssignMul()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignPow">visitAssignPow()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignShiftLeft">visitAssignShiftLeft()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignShiftRight">visitAssignShiftRight()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitAssignSub">visitAssignSub()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryAdd">visitBinaryAdd()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryBitwiseAnd">visitBinaryBitwiseAnd()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryBitwiseOr">visitBinaryBitwiseOr()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryBitwiseXor">visitBinaryBitwiseXor()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryBoolXor">visitBinaryBoolXor()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryConcat">visitBinaryConcat()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryDiv">visitBinaryDiv()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsEqual">visitBinaryIsEqual()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsIdentical">visitBinaryIsIdentical()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsNotEqual">visitBinaryIsNotEqual()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsNotIdentical">visitBinaryIsNotIdentical()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsSmaller">visitBinaryIsSmaller()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsSmallerOrEqual">visitBinaryIsSmallerOrEqual()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryMod">visitBinaryMod()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryMul">visitBinaryMul()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryPow">visitBinaryPow()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryShiftLeft">visitBinaryShiftLeft()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryShiftRight">visitBinaryShiftRight()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinarySpaceship">visitBinarySpaceship()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinarySub">visitBinarySub()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitClassAbstract">visitClassAbstract()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitClassFinal">visitClassFinal()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitClassInterface">visitClassInterface()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitClassTrait">visitClassTrait()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitModifierAbstract">visitModifierAbstract()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitModifierFinal">visitModifierFinal()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitModifierPrivate">visitModifierPrivate()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitModifierProtected">visitModifierProtected()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitModifierPublic">visitModifierPublic()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitModifierStatic">visitModifierStatic()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitNameFq">visitNameFq()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitNameNotFq">visitNameNotFq()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitNameRelative">visitNameRelative()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitParamRef">visitParamRef()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitParamVariadic">visitParamVariadic()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitReturnsRef">visitReturnsRef()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeArray">visitUnionTypeArray()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeBool">visitUnionTypeBool()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeCallable">visitUnionTypeCallable()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeDouble">visitUnionTypeDouble()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeLong">visitUnionTypeLong()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeNull">visitUnionTypeNull()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeObject">visitUnionTypeObject()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnionTypeString">visitUnionTypeString()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnaryBitwiseNot">visitUnaryBitwiseNot()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnaryBoolNot">visitUnaryBoolNot()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryBoolAnd">visitBinaryBoolAnd()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryBoolOr">visitBinaryBoolOr()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsGreater">visitBinaryIsGreater()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitBinaryIsGreaterOrEqual">visitBinaryIsGreaterOrEqual()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitClassAnonymous">visitClassAnonymous()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitExecEval">visitExecEval()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitExecInclude">visitExecInclude()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitExecIncludeOnce">visitExecIncludeOnce()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitExecRequire">visitExecRequire()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitExecRequireOnce">visitExecRequireOnce()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicClass">visitMagicClass()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicDir">visitMagicDir()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicFile">visitMagicFile()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicFunction">visitMagicFunction()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicLine">visitMagicLine()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicMethod">visitMagicMethod()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicNamespace">visitMagicNamespace()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitMagicTrait">visitMagicTrait()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnaryMinus">visitUnaryMinus()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnaryPlus">visitUnaryPlus()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUnarySilence">visitUnarySilence()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUseConst">visitUseConst()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUseFunction">visitUseFunction()</a><br />
+                                                                    <a href="../classes/Phan.Language.AST.FlagVisitor.html#method_visitUseNormal">visitUseNormal()</a><br />
+                                                            </section>
+                            <section class="span6">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span6">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span6">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span6">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        <dl>
+                        <dt>File</dt>
+                            <dd>
+                                <a href="../files/Phan.Language.AST.FlagVisitor.html"><div class="path-wrapper">Phan/Language/AST/FlagVisitor.php</div></a>
+                            </dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                                                
+                                            </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+            
+                        <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Methods</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignAdd" name="method_visitAssignAdd" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignAdd()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignAdd(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_ADD`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignBitwiseAnd" name="method_visitAssignBitwiseAnd" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignBitwiseAnd()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignBitwiseAnd(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_BITWISE_AND`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignBitwiseOr" name="method_visitAssignBitwiseOr" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignBitwiseOr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignBitwiseOr(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_BITWISE_OR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignBitwiseXor" name="method_visitAssignBitwiseXor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignBitwiseXor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignBitwiseXor(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_BITWISE_XOR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignConcat" name="method_visitAssignConcat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignConcat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignConcat(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_CONCAT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignDiv" name="method_visitAssignDiv" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignDiv()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignDiv(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_DIV`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignMod" name="method_visitAssignMod" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignMod()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignMod(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_MOD`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignMul" name="method_visitAssignMul" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignMul()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignMul(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_MUL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignPow" name="method_visitAssignPow" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignPow()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignPow(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_POW`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignShiftLeft" name="method_visitAssignShiftLeft" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignShiftLeft()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignShiftLeft(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_SHIFT_LEFT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignShiftRight" name="method_visitAssignShiftRight" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignShiftRight()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignShiftRight(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_SHIFT_RIGHT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitAssignSub" name="method_visitAssignSub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitAssignSub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitAssignSub(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\ASSIGN_SUB`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryAdd" name="method_visitBinaryAdd" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryAdd()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryAdd(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_ADD`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryBitwiseAnd" name="method_visitBinaryBitwiseAnd" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryBitwiseAnd()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryBitwiseAnd(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_BITWISE_AND`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryBitwiseOr" name="method_visitBinaryBitwiseOr" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryBitwiseOr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryBitwiseOr(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_BITWISE_OR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryBitwiseXor" name="method_visitBinaryBitwiseXor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryBitwiseXor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryBitwiseXor(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_BITWISE_XOR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryBoolXor" name="method_visitBinaryBoolXor" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryBoolXor()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryBoolXor(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_BOOL_XOR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryConcat" name="method_visitBinaryConcat" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryConcat()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryConcat(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_CONCAT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryDiv" name="method_visitBinaryDiv" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryDiv()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryDiv(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_DIV`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsEqual" name="method_visitBinaryIsEqual" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsEqual()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsEqual(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_EQUAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsIdentical" name="method_visitBinaryIsIdentical" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsIdentical()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsIdentical(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_IDENTICAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsNotEqual" name="method_visitBinaryIsNotEqual" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsNotEqual()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsNotEqual(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_NOT_EQUAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsNotIdentical" name="method_visitBinaryIsNotIdentical" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsNotIdentical()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsNotIdentical(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_NOT_IDENTICAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsSmaller" name="method_visitBinaryIsSmaller" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsSmaller()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsSmaller(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_SMALLER`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsSmallerOrEqual" name="method_visitBinaryIsSmallerOrEqual" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsSmallerOrEqual()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsSmallerOrEqual(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_SMALLER_OR_EQUAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryMod" name="method_visitBinaryMod" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryMod()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryMod(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_MOD`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryMul" name="method_visitBinaryMul" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryMul()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryMul(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_MUL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryPow" name="method_visitBinaryPow" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryPow()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryPow(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_POW`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryShiftLeft" name="method_visitBinaryShiftLeft" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryShiftLeft()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryShiftLeft(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_SHIFT_LEFT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryShiftRight" name="method_visitBinaryShiftRight" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryShiftRight()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryShiftRight(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_SHIFT_RIGHT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinarySpaceship" name="method_visitBinarySpaceship" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinarySpaceship()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinarySpaceship(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_SPACESHIP`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinarySub" name="method_visitBinarySub" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinarySub()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinarySub(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_SUB`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitClassAbstract" name="method_visitClassAbstract" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitClassAbstract()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitClassAbstract(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\CLASS_ABSTRACT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitClassFinal" name="method_visitClassFinal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitClassFinal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitClassFinal(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\CLASS_FINAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitClassInterface" name="method_visitClassInterface" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitClassInterface()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitClassInterface(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\CLASS_INTERFACE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitClassTrait" name="method_visitClassTrait" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitClassTrait()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitClassTrait(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\CLASS_TRAIT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitModifierAbstract" name="method_visitModifierAbstract" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitModifierAbstract()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitModifierAbstract(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MODIFIER_ABSTRACT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitModifierFinal" name="method_visitModifierFinal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitModifierFinal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitModifierFinal(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MODIFIER_FINAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitModifierPrivate" name="method_visitModifierPrivate" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitModifierPrivate()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitModifierPrivate(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MODIFIER_PRIVATE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitModifierProtected" name="method_visitModifierProtected" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitModifierProtected()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitModifierProtected(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MODIFIER_PROTECTED`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitModifierPublic" name="method_visitModifierPublic" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitModifierPublic()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitModifierPublic(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MODIFIER_PUBLIC`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitModifierStatic" name="method_visitModifierStatic" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitModifierStatic()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitModifierStatic(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MODIFIER_STATIC`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitNameFq" name="method_visitNameFq" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitNameFq()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitNameFq(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\NAME_FQ`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitNameNotFq" name="method_visitNameNotFq" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitNameNotFq()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitNameNotFq(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\NAME_NOT_FQ`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitNameRelative" name="method_visitNameRelative" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitNameRelative()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitNameRelative(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\NAME_RELATIVE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitParamRef" name="method_visitParamRef" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitParamRef()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitParamRef(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\PARAM_REF`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitParamVariadic" name="method_visitParamVariadic" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitParamVariadic()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitParamVariadic(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\PARAM_VARIADIC`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitReturnsRef" name="method_visitReturnsRef" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitReturnsRef()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitReturnsRef(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\RETURNS_REF`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeArray" name="method_visitUnionTypeArray" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeArray()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeArray(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_ARRAY`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeBool" name="method_visitUnionTypeBool" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeBool()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeBool(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_BOOL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeCallable" name="method_visitUnionTypeCallable" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeCallable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeCallable(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_CALLABLE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeDouble" name="method_visitUnionTypeDouble" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeDouble()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeDouble(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_DOUBLE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeLong" name="method_visitUnionTypeLong" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeLong()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeLong(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_LONG`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeNull" name="method_visitUnionTypeNull" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeNull()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeNull(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_NULL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeObject" name="method_visitUnionTypeObject" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeObject()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeObject(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_OBJECT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnionTypeString" name="method_visitUnionTypeString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnionTypeString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnionTypeString(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\TYPE_STRING`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnaryBitwiseNot" name="method_visitUnaryBitwiseNot" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnaryBitwiseNot()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnaryBitwiseNot(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\UNARY_BITWISE_NOT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnaryBoolNot" name="method_visitUnaryBoolNot" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnaryBoolNot()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnaryBoolNot(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\UNARYbOOL_NOT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryBoolAnd" name="method_visitBinaryBoolAnd" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryBoolAnd()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryBoolAnd(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_BOOL_AND`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryBoolOr" name="method_visitBinaryBoolOr" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryBoolOr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryBoolOr(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_BOOL_OR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsGreater" name="method_visitBinaryIsGreater" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsGreater()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsGreater(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_GREATER`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitBinaryIsGreaterOrEqual" name="method_visitBinaryIsGreaterOrEqual" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitBinaryIsGreaterOrEqual()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitBinaryIsGreaterOrEqual(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\BINARY_IS_GREATER_OR_EQUAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitClassAnonymous" name="method_visitClassAnonymous" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitClassAnonymous()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitClassAnonymous(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\CLASS_ANONYMOUS`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitExecEval" name="method_visitExecEval" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitExecEval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitExecEval(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\EXEC_EVAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitExecInclude" name="method_visitExecInclude" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitExecInclude()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitExecInclude(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\EXEC_INCLUDE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitExecIncludeOnce" name="method_visitExecIncludeOnce" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitExecIncludeOnce()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitExecIncludeOnce(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\EXEC_INCLUDE_ONCE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitExecRequire" name="method_visitExecRequire" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitExecRequire()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitExecRequire(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\EXEC_REQUIRE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitExecRequireOnce" name="method_visitExecRequireOnce" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitExecRequireOnce()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitExecRequireOnce(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\EXEC_REQUIRE_ONCE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicClass" name="method_visitMagicClass" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicClass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicClass(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_CLASS`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicDir" name="method_visitMagicDir" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicDir()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicDir(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_DIR`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicFile" name="method_visitMagicFile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicFile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicFile(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_FILE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicFunction" name="method_visitMagicFunction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicFunction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicFunction(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_FUNCTION`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicLine" name="method_visitMagicLine" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicLine()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicLine(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_LINE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicMethod" name="method_visitMagicMethod" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicMethod()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicMethod(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_METHOD`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicNamespace" name="method_visitMagicNamespace" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicNamespace()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicNamespace(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_NAMESPACE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitMagicTrait" name="method_visitMagicTrait" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitMagicTrait()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitMagicTrait(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\MAGIC_TRAIT`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnaryMinus" name="method_visitUnaryMinus" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnaryMinus()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnaryMinus(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\UNARY_MINUS`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnaryPlus" name="method_visitUnaryPlus" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnaryPlus()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnaryPlus(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\UNARY_PLUS`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUnarySilence" name="method_visitUnarySilence" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUnarySilence()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUnarySilence(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\UNARY_SILENCE`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUseConst" name="method_visitUseConst" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUseConst()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUseConst(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\USE_CONST`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUseFunction" name="method_visitUseFunction" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUseFunction()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUseFunction(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\USE_FUNCTION`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visitUseNormal" name="method_visitUseNormal" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visitUseNormal()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visitUseNormal(\ast\Node  <span class="argument">$node</span>) </pre>
+                <p><em>Visit a node with flag `\ast\flags\USE_NORMAL`</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\ast\Node</td>
+                                <td>$node </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">FlagVisitor.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Phan/Language/AST/FlagVisitor.php.txt" class="language-php"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Phan.html">\Phan</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 21st, 2015 at 21:14.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
