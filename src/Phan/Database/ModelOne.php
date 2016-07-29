@@ -20,6 +20,8 @@ abstract class ModelOne extends Model implements ModelOneInterface
      *
      * @return Model
      * Read a model from the database with the given pk
+     *
+     * @throws NotFoundException
      */
     public static function read(Database $database, $primary_key_value) : Model
     {

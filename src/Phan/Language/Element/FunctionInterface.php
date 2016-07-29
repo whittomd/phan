@@ -6,6 +6,7 @@ use Phan\Language\Context;
 use Phan\Language\FQSEN\FullyQualifiedFunctionName;
 use Phan\Language\FQSEN\FullyQualifiedMethodName;
 use Phan\Language\Scope\ClosedScope;
+use Phan\Language\Type;
 
 /**
  * Interface defining the behavior of both Methods
@@ -134,4 +135,17 @@ interface FunctionInterface extends AddressableElementInterface {
      */
     public function analyze(Context $context, CodeBase $code_base) : Context;
 
+    /**
+     * @return Type[]
+     * A list of types declared to be thrown from this method
+     * or function
+     */
+    public function getThrowsTypeList();
+
+    /**
+     * @return bool
+     * True if this method or function throws an exception
+     * of the given type
+     */
+    public function hasThrownType(Type $type) : bool;
 }

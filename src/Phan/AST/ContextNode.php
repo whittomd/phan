@@ -596,6 +596,9 @@ class ContextNode
      * @throws TypeException
      * An exception may be thrown if the only viable candidate
      * is a non-class type.
+     *
+     * @throws UnanalyzableException
+     * @throws IssueException
      */
     public function getOrCreateProperty(
         string $property_name
@@ -671,6 +674,8 @@ class ContextNode
      * @throws CodeBaseExtension
      * An exception is thrown if we can't find the given
      * class
+     *
+     * @throws IssueException
      */
     public function getConst() : GlobalConstant
     {
@@ -722,6 +727,8 @@ class ContextNode
      * @throws UnanalyzableException
      * An exception is thrown if we hit a construct in which
      * we can't determine if the property exists or not
+     *
+     * @throws IssueException
      */
     public function getClassConst() : ClassConstant
     {
@@ -806,6 +813,8 @@ class ContextNode
 
     /**
      * @return Method
+     *
+     * @throws CodeBaseException
      */
     public function getClosure() : Func
     {

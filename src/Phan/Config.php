@@ -313,6 +313,9 @@ class Config
         // class types.
         'generic_types_enabled' => true,
 
+        // Enable or disable support for tracking exceptions
+        'exception_tracking_enabled' => true,
+
         // Assign files to be analyzed on random processes
         // in random order. You very likely don't want to
         // set this to true. This is meant for debugging

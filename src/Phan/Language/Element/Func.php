@@ -3,10 +3,11 @@ namespace Phan\Language\Element;
 
 use Phan\CodeBase;
 use Phan\Issue;
-use Phan\Language\Scope\FunctionLikeScope;
+use Phan\Langauge\Type;
 use Phan\Language\Context;
 use Phan\Language\FQSEN;
 use Phan\Language\FQSEN\FullyQualifiedFunctionName;
+use Phan\Language\Scope\FunctionLikeScope;
 use Phan\Language\Type\NullType;
 use Phan\Language\UnionType;
 use ast\Node;
@@ -116,6 +117,11 @@ class Func extends AddressableElement implements FunctionInterface
         // we can come back to it whenever we like and
         // rescan it
         $func->setNode($node);
+
+        // Mark any thrown exception types on the method
+        $func->setThrowsTypeList(
+            $comment->getThrowsTypeList()
+        );
 
         // Set the parameter list on the function
         $func->setParameterList($parameter_list);

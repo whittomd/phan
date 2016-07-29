@@ -948,6 +948,8 @@ class Clazz extends AddressableElement
     /**
      * @return Method
      * The method with the given name
+     *
+     * @throws CodeBaseException
      */
     public function getMethodByNameInContext(
         CodeBase $code_base,

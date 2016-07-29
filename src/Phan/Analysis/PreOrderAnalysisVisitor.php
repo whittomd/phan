@@ -50,6 +50,8 @@ class PreOrderAnalysisVisitor extends ScopeVisitor
      * @return Context
      * A new or an unchanged context resulting from
      * parsing the node
+     *
+     * @throws CodeBaseException
      */
     public function visitClass(Decl $node) : Context
     {
@@ -106,6 +108,8 @@ class PreOrderAnalysisVisitor extends ScopeVisitor
      * @return Context
      * A new or an unchanged context resulting from
      * parsing the node
+     *
+     * @throws CodeBaseException
      */
     public function visitMethod(Decl $node) : Context
     {
@@ -184,6 +188,8 @@ class PreOrderAnalysisVisitor extends ScopeVisitor
      * @return Context
      * A new or an unchanged context resulting from
      * parsing the node
+     *
+     * @throws CodeBaseException
      */
     public function visitFuncDecl(Decl $node) : Context
     {
@@ -385,6 +391,8 @@ class PreOrderAnalysisVisitor extends ScopeVisitor
      * @return Context
      * A new or an unchanged context resulting from
      * parsing the node
+     *
+     * @throws NodeException
      */
     public function visitForeach(Node $node) : Context
     {

@@ -398,6 +398,8 @@ class Context extends FileRef implements \Serializable
      * The element who's scope we're in. If we're in the global
      * scope this method will go down in flames and take your
      * process with it.
+     *
+     * @throws CodeBaseException
      */
     public function getElementInScope(CodeBase $code_base) : TypedElement
     {

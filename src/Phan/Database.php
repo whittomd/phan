@@ -44,6 +44,8 @@ class Database extends SQLite3
 
     /**
      * Get an open database to write to and read from
+     *
+     * @throws \Exception
      */
     public static function get() : Database
     {

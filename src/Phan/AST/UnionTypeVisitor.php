@@ -490,7 +490,6 @@ class UnionTypeVisitor extends AnalysisVisitor
      */
     public function visitConditional(Node $node) : UnionType
     {
-
         $true_type = UnionType::fromNode(
             $this->context,
             $this->code_base,
@@ -641,6 +640,8 @@ class UnionTypeVisitor extends AnalysisVisitor
      * @return UnionType
      * The set of types that are possibly produced by the
      * given node
+     *
+     * @throws NodeException
      */
     public function visitCast(Node $node) : UnionType
     {
@@ -881,6 +882,8 @@ class UnionTypeVisitor extends AnalysisVisitor
      * @return UnionType
      * The set of types that are possibly produced by the
      * given node
+     *
+     * @throws IssueException
      */
     public function visitVar(Node $node) : UnionType
     {

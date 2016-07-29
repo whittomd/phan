@@ -163,6 +163,8 @@ class CalledBy extends ModelOne
     /**
      * @return string
      * The primary key of this model
+     *
+     * @throws \Exception
      */
     public function primaryKeyValue() : string
     {

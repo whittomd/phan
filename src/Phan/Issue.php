@@ -126,6 +126,9 @@ class Issue
     const GenericGlobalVariable     = 'PhanGenericGlobalVariable';
     const GenericConstructorTypes   = 'PhanGenericConstructorTypes';
 
+    // Issue::CATEGORY_EXCEPTIONS
+    const UndeclaredThrow           = 'PhanUndeclaredThrow';
+
     const CATEGORY_ACCESS            = 1 << 1;
     const CATEGORY_ANALYSIS          = 1 << 2;
     const CATEGORY_COMPATIBLE        = 1 << 3;
@@ -140,6 +143,7 @@ class Issue
     const CATEGORY_VARIABLE          = 1 << 12;
     const CATEGORY_PLUGIN            = 1 << 13;
     const CATEGORY_GENERIC           = 1 << 14;
+    const CATEGORY_EXCEPTIONS        = 1 << 15;
 
     const CATEGORY_NAME = [
         self::CATEGORY_ACCESS            => 'AccessError',
@@ -869,6 +873,14 @@ class Issue
                 self::CATEGORY_GENERIC,
                 self::SEVERITY_NORMAL,
                 "Missing template parameters %s on constructor for generic class %s",
+                self::REMEDIATION_B
+            ),
+
+            new Issue(
+                self::UndeclaredThrow,
+                self::CATEGORY_EXCEPTIONS,
+                self::SEVERITY_NORMAL,
+                "Method %s does not declare that it throws an exception of type %s",
                 self::REMEDIATION_B
             ),
         ];

@@ -32,6 +32,8 @@ class None extends Option
 
     /**
      * @return null
+     *
+     * @throws \Exception
      */
     public function get()
     {

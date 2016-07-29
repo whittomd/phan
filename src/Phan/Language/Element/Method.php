@@ -226,6 +226,11 @@ class Method extends ClassElement implements FunctionInterface
         // rescan it
         $method->setNode($node);
 
+        // Mark any thrown exception types on the method
+        $method->setThrowsTypeList(
+            $comment->getThrowsTypeList()
+        );
+
         // Set the parameter list on the method
         $method->setParameterList($parameter_list);
 
@@ -421,6 +426,8 @@ class Method extends ClassElement implements FunctionInterface
      *
      * @return Method
      * The Method that this Method is overriding
+     *
+     * @throws CodeBaseException
      */
     public function getOverriddenMethod(
         CodeBase $code_base

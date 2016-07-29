@@ -2,6 +2,7 @@
 namespace Phan\Language\Element;
 
 use Phan\CodeBase;
+use Phan\Language\Type;
 
 trait FunctionTrait {
 
@@ -35,6 +36,13 @@ trait FunctionTrait {
      * The list of parameters for this method
      */
     private $parameter_list = [];
+
+    /**
+     * @var Type[]
+     * A list of thrown exception types declared on the
+     * method or function.
+     */
+    private $throws_type_list = [];
 
     /**
      * @return int
@@ -146,7 +154,8 @@ trait FunctionTrait {
      * @return Parameter[]
      * A list of parameters on the method
      */
-    public function getParameterList() {
+    public function getParameterList()
+    {
         return $this->parameter_list;
     }
 
@@ -168,6 +177,41 @@ trait FunctionTrait {
      */
     public function appendParameter(Parameter $parameter) {
         $this->parameter_list[] = $parameter;
+    }
+
+    /**
+     * @return Type[]
+     * A list of types declared to be thrown from this method
+     * or function
+     */
+    public function getThrowsTypeList()
+    {
+        return $this->throws_type_list;
+    }
+
+    /**
+     * Set the list of types declared to be thrown by this method
+     * or function.
+     *
+     * @param Type[] $throws_type_list
+     * A list of types declared to be thrown by this method or
+     * function
+     *
+     * @return void
+     */
+    protected function setThrowsTypeList($throws_type_list)
+    {
+        $this->throws_type_list = $throws_type_list;
+    }
+
+    /**
+     * @return bool
+     * True if this method or function throws an exception
+     * of the given type
+     */
+    public function hasThrownType(Type $type) : bool
+    {
+        return in_array($type, $this->getThrowsTypeList());
     }
 
 }

@@ -57,6 +57,12 @@ class Comment
     private $inherited_type = null;
 
     /**
+     * @var Type[]
+     * A list of exception types that are declared to be thrown
+     */
+    private $throws_type_list = [];
+
+    /**
      * @var UnionType
      * A UnionType defined by a @return directive
      */
@@ -86,6 +92,9 @@ class Comment
      * @param Option<Type> $inherited_type
      * An override on the type of the extended class
      *
+     * @param Type[] $throws_type_list
+     * A list of exception types that are declared to be thrown
+     *
      * @param UnionType $return
      *
      * @param string[] $suppress_issue_list
@@ -97,6 +106,7 @@ class Comment
         array $parameter_list,
         array $template_type_list,
         Option $inherited_type,
+        array $throws_type_list,
         UnionType $return_union_type,
         array $suppress_issue_list
     ) {
@@ -105,6 +115,7 @@ class Comment
         $this->parameter_list = $parameter_list;
         $this->template_type_list = $template_type_list;
         $this->inherited_type = $inherited_type;
+        $this->throws_type_list = $throws_type_list;
         $this->return_union_type = $return_union_type;
         $this->suppress_issue_list = $suppress_issue_list;
 
@@ -132,7 +143,7 @@ class Comment
 
         if (!Config::get()->read_type_annotations) {
             return new Comment(
-                false, [], [], [], new None, new UnionType(), []
+                false, [], [], [], new None, [], new UnionType(), []
             );
         }
 
@@ -141,6 +152,7 @@ class Comment
         $parameter_list = [];
         $template_type_list = [];
         $inherited_type = new None;
+        $throws_type_list = [];
         $return_union_type = new UnionType();
         $suppress_issue_list = [];
 
@@ -170,6 +182,15 @@ class Comment
                     $inherited_type =
                         self::inheritsFromCommentLine($context, $line);
                 }
+            } elseif (stripos($line, '@throws') !== false) {
+                if (Config::get()->exception_tracking_enabled) {
+                    $throws_type_option =
+                        self::throwsFromCommentLine($context, $line);
+
+                    if ($throws_type_option->isDefined()) {
+                        $throws_type_list[] = $throws_type_option->get();
+                    }
+                }
             } elseif (stripos($line, '@return') !== false) {
                 $return_union_type =
                     self::returnTypeFromCommentLine($context, $line);
@@ -191,6 +212,7 @@ class Comment
             $parameter_list,
             $template_type_list,
             $inherited_type,
+            $throws_type_list,
             $return_union_type,
             $suppress_issue_list
         );
@@ -311,15 +333,40 @@ class Comment
         if (preg_match('/@inherits\s+(' . Type::type_regex . ')/', $line, $match)) {
             $type_string = $match[1];
 
-            $type = new Some(Type::fromStringInContext(
+            return new Some(Type::fromStringInContext(
                 $type_string,
                 $context
             ));
-
-            return $type;
         }
 
-        return new None();
+        return new None;
+    }
+
+    /**
+     * @param Context $context
+     * The context in which the comment line appears
+     *
+     * @param string $line
+     * An individual line of a comment
+     *
+     * @return Option<Type>
+     * An optional type thats being thrown
+     */
+    private static function throwsFromCommentLine(
+        Context $context,
+        string $line
+    ) {
+        $match = [];
+        if (preg_match('/@throws\s+(' . Type::type_regex . ')/', $line, $match)) {
+            $type_string = $match[1];
+
+            return new Some(Type::fromStringInContext(
+                $type_string,
+                $context
+            ));
+        }
+
+        return new None;
     }
 
     /**
@@ -394,6 +441,15 @@ class Comment
     public function getInheritedTypeOption()
     {
         return $this->inherited_type;
+    }
+
+    /**
+     * @return Type[]
+     * A list of thrown exception types
+     */
+    public function getThrowsTypeList()
+    {
+        return $this->throws_type_list;
     }
 
     /**

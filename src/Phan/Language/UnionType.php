@@ -701,6 +701,8 @@ class UnionType implements \Serializable
      * @throws CodeBaseException
      * An exception is thrown if a non-native type does not have
      * an associated class
+     *
+     * @throws IssueException
      */
     public function asClassList(
         CodeBase $code_base,

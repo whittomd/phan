@@ -545,6 +545,47 @@ class PostOrderAnalysisVisitor extends AnalysisVisitor
      * A new or an unchanged context resulting from
      * parsing the node
      */
+    public function visitThrow(Node $node) : Context
+    {
+        // Get the method/function/closure we're in
+        $method = $this->context->getFunctionLikeInScope($this->code_base);
+
+        // Ignore thrown exceptions outside of method or functions
+        if (empty($method)) {
+            return $this->context;
+        }
+
+        $thrown_union_type = UnionType::fromNode(
+            $this->context,
+            $this->code_base,
+            $node->children['expr'],
+            false
+        );
+
+        // Make sure that all thrown exceptions are declared to
+        // be thrown
+        foreach ($thrown_union_type->getTypeSet() as $i => $type) {
+            if (!$method->hasThrownType($type)) {
+                $this->emitIssue(
+                    Issue::UndeclaredThrow,
+                    $node->lineno ?? 0,
+                    (string)$method->getFQSEN(),
+                    (string)$type
+                );
+            }
+        }
+
+        return $this->context;
+    }
+
+    /**
+     * @param Node $node
+     * A node to parse
+     *
+     * @return Context
+     * A new or an unchanged context resulting from
+     * parsing the node
+     */
     public function visitReturn(Node $node) : Context
     {
         // Don't check return types in traits
