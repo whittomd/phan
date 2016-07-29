@@ -1,4 +1,4 @@
 %s:4 PhanUndeclaredClassMethod Call to method __construct from undeclared class \Ex
+%s:4 PhanUndeclaredThrow Method \test does not declare that it throws an exception of type \Ex
 %s:5 PhanUndeclaredClassCatch Catching undeclared class \Exceptio
 %s:6 PhanUndeclaredClassMethod Call to method getMessage from undeclared class \Exceptio
-
