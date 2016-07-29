@@ -547,6 +547,10 @@ class PostOrderAnalysisVisitor extends AnalysisVisitor
      */
     public function visitThrow(Node $node) : Context
     {
+        if (!$this->context->isInFunctionLikeScope()) {
+            return $this->context;
+        }
+
         // Get the method/function/closure we're in
         $method = $this->context->getFunctionLikeInScope($this->code_base);
 
