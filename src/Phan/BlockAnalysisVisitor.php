@@ -282,7 +282,7 @@ class BlockAnalysisVisitor extends AnalysisVisitor {
                  $this->depth + 1
               ))($stmts_node);
            } else {
-              echo "Token near $node->lineno is not a node.";
+              echo "Token near $node->lineno in " . $this->context->getFile() . " is not a node.\n";
            }
         }
 

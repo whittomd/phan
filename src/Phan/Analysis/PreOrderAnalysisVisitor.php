@@ -578,7 +578,7 @@ class PreOrderAnalysisVisitor extends ScopeVisitor
         }
         
         if(!($node->children['args']->children[0]) instanceof Node) {
-           echo "Should be node, is " . gettype($node->children['args']->children[0]);
+           echo "Should be node, is " . gettype($node->children['args']->children[0]) . PHP_EOL;
            Issue::maybeEmit(
               $this->code_base,
               $this->context,
