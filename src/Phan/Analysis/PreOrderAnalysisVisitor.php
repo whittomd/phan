@@ -576,8 +576,16 @@ class PreOrderAnalysisVisitor extends ScopeVisitor
         ) {
             return $this->context;
         }
+        
         if(!($node->children['args']->children[0]) instanceof Node) {
            echo "Should be node, is " . typeof($node->children['args']->children[0]);
+           Issue::maybeEmit(
+              $this->code_base,
+              $this->context,
+              Issue::CompatiblePHP7,
+              $this->node->lineno ?? 0
+           );
+           return $this->context;
         }
         // Look to see if the asserted expression says anything about
         // the types of any variables.
