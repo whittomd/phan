@@ -307,7 +307,7 @@ class Analysis
         CodeBase $code_base,
         string $file_path
     ) : Context {
-        echo "Analyzing $file_path\n";
+        fwrite(STDERR, "Analyzing $file_path\n");
         // Set the file on the context
         $context = (new Context)->withFile($file_path);
 
