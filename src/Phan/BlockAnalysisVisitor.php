@@ -272,14 +272,18 @@ class BlockAnalysisVisitor extends AnalysisVisitor {
         }
 
         if ($stmts_node = $node->children['stmts']) {
-            $context = (new BlockAnalysisVisitor(
-                $this->code_base,
-                $context->withScope(
+           if($stmts_node instanceof Node) {
+              $context = (new BlockAnalysisVisitor(
+                 $this->code_base,
+                 $context->withScope(
                     new BranchScope($context->getScope())
-                )->withLineNumberStart($stmts_node->lineno ?? 0),
-                $node,
-                $this->depth + 1
-            ))($stmts_node);
+                 )->withLineNumberStart($stmts_node->lineno ?? 0),
+                 $node,
+                 $this->depth + 1
+              ))($stmts_node);
+           } else {
+              echo "Token near $node->lineno is not a node.";
+           }
         }
 
         // Now that we know all about our context (like what
